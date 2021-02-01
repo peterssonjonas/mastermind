@@ -1,3 +1,23 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-family: sans-serif;
+}
+
 body {
   margin: 0;
+  display: flex;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+h1 {
+  font-size: 3em;
+  letter-spacing: 0.15em;
+  text-align: center;
+  text-transform: uppercase;
 }
