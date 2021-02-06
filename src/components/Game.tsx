@@ -1,44 +1,31 @@
-import { useState, useEffect } from 'react';
+import { useReducer } from 'react';
+import { generateArray, generateGrid } from '../helpers/generateArray';
+import { generateCode } from '../helpers/generateCode';
+import { Match } from '../helpers/getMatches';
+import { ActionType, mastermind, State } from '../reducers/mastermind';
 import CodePegs from './CodePegs';
 import DecodingBoard from './DecodingBoard';
 import Footer from './Footer';
 
+const turns = 10;
+const holes = 4;
+const colors = 6;
+
+const initialState: State = {
+  guesses: generateGrid(turns, holes, () => -1),
+  hints: generateGrid(turns, holes, () => Match.None),
+  turn: 0,
+  guessIndex: 0,
+};
+
 function Game() {
-  const turns = 10;
-  const holes = 4;
-  const colors = 6;
+  const colorsArray = generateArray(colors, (_: any, i: number) => i);
 
-  const holesArray: number[] = Array(holes).fill(-1);
-  const turnsArray: number[][] = Array(turns).fill(holesArray);
-  const colorsArray: number[] = Array(colors)
-    .fill(-1)
-    .map((_, i) => i);
-
-  const [guesses, setGuesses] = useState(turnsArray);
-  const [hints, setHints] = useState(turnsArray);
-  const [turn, setTurn] = useState(0);
-  const [guessIndex, setGuessIndex] = useState(0);
-
-  useEffect(() => {
-    const guess = guesses[turn];
-    const isAll = guess.every((g) => g >= 0);
-
-    isAll && setTurn((prevTurn) => prevTurn + 1);
-  }, [guesses, turn]);
+  const [state, dispatch] = useReducer(mastermind, initialState);
+  const { guesses, hints, turn } = state;
 
   const onClick = (peg: number) => {
-    setGuesses((oldGuesses) => {
-      return oldGuesses.map((row, i) => {
-        if (i !== turn) return row;
-
-        return row.map((guess, j) => {
-          if (j !== guessIndex) return guess;
-
-          return peg;
-        });
-      });
-    });
-    setGuessIndex((oldIndex) => (oldIndex + 1) % holes);
+    dispatch({ type: ActionType.Click, payload: { value: peg } });
   };
 
   return (

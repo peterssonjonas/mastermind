@@ -11,6 +11,7 @@ const CodePegs = ({ colors, onClick }: CodePegsProps) => (
         className="peg bordered"
         data-value={color}
         onClick={() => onClick(color)}
+        aria-label={`${color}`}
       ></button>
     ))}
   </div>

@@ -1,11 +1,13 @@
+import { Match } from '../helpers/getMatches';
+
 type HintsProps = {
-  hints: number[];
+  hints: Match[];
 };
 
 const Hints = ({ hints }: HintsProps) => (
   <>
-    {hints.map((_, i) => (
-      <div key={i} className="hint bordered"></div>
+    {hints.map((hint, i) => (
+      <div key={i} className="hint bordered" data-value={hint}></div>
     ))}
   </>
 );
