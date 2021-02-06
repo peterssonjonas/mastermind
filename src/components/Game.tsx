@@ -16,6 +16,7 @@ const initialState: State = {
   hints: generateGrid(turns, holes, () => Match.None),
   turn: 0,
   guessIndex: 0,
+  secretCode: generateCode(holes, colors),
 };
 
 function Game() {

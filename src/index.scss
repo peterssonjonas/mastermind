@@ -127,4 +127,14 @@ footer {
 .hint {
   width: 1em;
   height: 1em;
+
+  &[data-value='0'] {
+    background-color: transparent;
+  }
+  &[data-value='1'] {
+    background-color: gray;
+  }
+  &[data-value='2'] {
+    background-color: black;
+  }
 }
