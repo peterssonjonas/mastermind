@@ -1,4 +1,4 @@
-import { Match } from "./getMatches";
+import { Match } from './getMatches';
 
 export const getPartialMatches = (matches: Match[], codeGuess: number[], secretCode: number[]) => {
   const alreadyMatched = matches.map(match => match === Match.Exact);

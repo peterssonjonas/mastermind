@@ -1,5 +1,5 @@
-import { getExactMatches } from "./getExactMatches";
-import { getPartialMatches } from "./getPartialMatches";
+import { getExactMatches } from './getExactMatches';
+import { getPartialMatches } from './getPartialMatches';
 
 export enum Match {
   None,

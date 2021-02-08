@@ -1,5 +1,5 @@
-import { clone } from "../helpers/clone";
-import { getMatches } from "../helpers/getMatches";
+import { clone } from '../helpers/clone';
+import { getMatches } from '../helpers/getMatches';
 
 export enum ActionType {
   Click
