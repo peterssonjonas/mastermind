@@ -2,10 +2,16 @@ import { useReducer } from 'react';
 import { generateArray, generateGrid } from '../helpers/generateArray';
 import { generateCode } from '../helpers/generateCode';
 import { Match } from '../helpers/getMatches';
-import { ActionType, mastermind, State } from '../reducers/mastermind';
+import {
+  ActionType,
+  GameState,
+  mastermind,
+  State,
+} from '../reducers/mastermind';
 import CodePegs from './CodePegs';
 import DecodingBoard from './DecodingBoard';
 import Footer from './Footer';
+import GameOverlay from './GameOverlay';
 
 const turns = 10;
 const holes = 4;
@@ -17,13 +23,14 @@ const initialState: State = {
   turn: 0,
   guessIndex: 0,
   secretCode: generateCode(holes, colors),
+  status: GameState.InProgress,
 };
 
 function Game() {
   const colorsArray = generateArray(colors, (_: any, i: number) => i);
 
   const [state, dispatch] = useReducer(mastermind, initialState);
-  const { guesses, hints, turn } = state;
+  const { guesses, hints, turn, status } = state;
 
   const onClick = (peg: number) => {
     dispatch({ type: ActionType.Click, payload: { value: peg } });
@@ -35,6 +42,9 @@ function Game() {
       <DecodingBoard guesses={guesses} hints={hints} currentRow={turn} />
       <CodePegs colors={colorsArray} onClick={onClick} />
       <Footer />
+      {(status === GameState.Victory || status === GameState.GameOver) && (
+        <GameOverlay secretCode={initialState.secretCode} status={status} />
+      )}
     </>
   );
 }

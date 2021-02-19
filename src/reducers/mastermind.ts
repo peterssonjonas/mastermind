@@ -1,8 +1,16 @@
+import { checkForWin } from '../helpers/checkForWin';
 import { clone } from '../helpers/clone';
 import { getMatches } from '../helpers/getMatches';
 
+export enum GameState {
+  InProgress,
+  Victory,
+  GameOver,
+}
+
 export enum ActionType {
-  Click
+  Click,
+  Reset
 }
 
 export interface State {
@@ -11,9 +19,10 @@ export interface State {
   turn: number;
   guessIndex: number;
   secretCode: number[];
+  status?: GameState;
 }
 
-type Action = { type: ActionType.Click, payload: { value: number } };
+type Action = { type: ActionType, payload: { value: number } };
 
 export const mastermind = (state: State, action: Action) => {
   switch (action.type) {
@@ -29,6 +38,15 @@ export const mastermind = (state: State, action: Action) => {
 
       if (nextState.guessIndex === 0) {
         hints[state.turn] = getMatches(guesses[state.turn], state.secretCode);
+        
+        const winner = checkForWin(hints[state.turn]);
+        if (winner) {
+          nextState.status = GameState.Victory;
+        } else if (state.turn === state.guesses.length - 1) {
+          nextState.status = GameState.GameOver;
+        } else {
+          nextState.status = GameState.InProgress;
+        }
         nextState.turn = state.turn + 1;
       }
 

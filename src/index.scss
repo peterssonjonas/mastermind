@@ -57,6 +57,45 @@ button {
 h1 {
   grid-area: header;
 }
+
+.overlay {
+  display: grid;
+  place-items: center;
+  position: fixed;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+
+  .game-over {
+    --color-border: #b22222;
+    --color-bg: #f0d3d3;
+  }
+  .winner {
+    --color-border: #22b222;
+    --color-bg: #d3f0d3;
+  }
+
+  .container {
+    padding: 3rem 5rem;
+    border: 5px solid var(--color-border);
+    border-radius: 5px;
+    background: var(--color-bg);
+    text-align: center;
+  }
+
+  h2 {
+    margin-top: 0;
+    font-size: 2rem;
+  }
+
+  .code {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+}
+
 .decoding-board {
   grid-area: board;
 }
@@ -103,38 +142,40 @@ footer {
   grid-row: span 2;
   width: 3em;
   height: 3em;
+  background-color: var(--color-peg);
 
   &[data-value='0'] {
-    background-color: hsl(0, 50%, 50%);
+    --color-peg: hsl(0, 50%, 50%);
   }
   &[data-value='1'] {
-    background-color: hsl(60, 50%, 50%);
+    --color-peg: hsl(60, 50%, 50%);
   }
   &[data-value='2'] {
-    background-color: hsl(120, 50%, 50%);
+    --color-peg: hsl(120, 50%, 50%);
   }
   &[data-value='3'] {
-    background-color: hsl(180, 50%, 50%);
+    --color-peg: hsl(180, 50%, 50%);
   }
   &[data-value='4'] {
-    background-color: hsl(240, 50%, 50%);
+    --color-peg: hsl(240, 50%, 50%);
   }
   &[data-value='5'] {
-    background-color: hsl(300, 50%, 50%);
+    --color-peg: hsl(300, 50%, 50%);
   }
 }
 
 .hint {
   width: 1em;
   height: 1em;
+  background-color: var(--color-hint);
 
   &[data-value='0'] {
-    background-color: transparent;
+    --color-hint: transparent;
   }
   &[data-value='1'] {
-    background-color: gray;
+    --color-hint: gray;
   }
   &[data-value='2'] {
-    background-color: black;
+    --color-hint: black;
   }
 }
