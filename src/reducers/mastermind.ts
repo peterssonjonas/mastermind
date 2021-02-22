@@ -1,6 +1,8 @@
 import { checkForWin } from '../helpers/checkForWin';
 import { clone } from '../helpers/clone';
-import { getMatches } from '../helpers/getMatches';
+import { generateGrid } from '../helpers/generateArray';
+import { generateCode } from '../helpers/generateCode';
+import { getMatches, Match } from '../helpers/getMatches';
 
 export enum GameState {
   InProgress,
@@ -22,7 +24,16 @@ export interface State {
   status?: GameState;
 }
 
-type Action = { type: ActionType, payload: { value: number } };
+export const getInitialState = ({turns = 10, holes = 4, colors = 6}): State => ({
+  guesses: generateGrid(turns, holes, () => -1),
+  hints: generateGrid(turns, holes, () => Match.None),
+  turn: 0,
+  guessIndex: 0,
+  secretCode: generateCode(holes, colors),
+  status: GameState.InProgress,
+});
+
+type Action = { type: ActionType, payload: { value?: number, turns?: number, holes?: number, colors?: number } };
 
 export const mastermind = (state: State, action: Action) => {
   switch (action.type) {
@@ -51,6 +62,9 @@ export const mastermind = (state: State, action: Action) => {
       }
 
       return nextState;
+    }
+    case ActionType.Reset: {
+      return getInitialState(action.payload);
     }
     default:
       return state;

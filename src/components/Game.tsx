@@ -1,12 +1,10 @@
 import { useReducer } from 'react';
-import { generateArray, generateGrid } from '../helpers/generateArray';
-import { generateCode } from '../helpers/generateCode';
-import { Match } from '../helpers/getMatches';
+import { generateArray } from '../helpers/generateArray';
 import {
   ActionType,
   GameState,
+  getInitialState,
   mastermind,
-  State,
 } from '../reducers/mastermind';
 import CodePegs from './CodePegs';
 import DecodingBoard from './DecodingBoard';
@@ -17,23 +15,21 @@ const turns = 10;
 const holes = 4;
 const colors = 6;
 
-const initialState: State = {
-  guesses: generateGrid(turns, holes, () => -1),
-  hints: generateGrid(turns, holes, () => Match.None),
-  turn: 0,
-  guessIndex: 0,
-  secretCode: generateCode(holes, colors),
-  status: GameState.InProgress,
-};
-
 function Game() {
   const colorsArray = generateArray(colors, (_: any, i: number) => i);
 
-  const [state, dispatch] = useReducer(mastermind, initialState);
-  const { guesses, hints, turn, status } = state;
+  const [state, dispatch] = useReducer(
+    mastermind,
+    getInitialState({ turns, holes, colors })
+  );
+  const { guesses, hints, turn, status, secretCode } = state;
 
   const onClick = (peg: number) => {
     dispatch({ type: ActionType.Click, payload: { value: peg } });
+  };
+
+  const reset = () => {
+    dispatch({ type: ActionType.Reset, payload: { turns, holes, colors } });
   };
 
   return (
@@ -43,7 +39,7 @@ function Game() {
       <CodePegs colors={colorsArray} onClick={onClick} />
       <Footer />
       {(status === GameState.Victory || status === GameState.GameOver) && (
-        <GameOverlay secretCode={initialState.secretCode} status={status} />
+        <GameOverlay status={status} secretCode={secretCode} reset={reset} />
       )}
     </>
   );
