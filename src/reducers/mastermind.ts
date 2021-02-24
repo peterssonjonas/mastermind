@@ -2,7 +2,7 @@ import { checkForWin } from '../helpers/checkForWin';
 import { clone } from '../helpers/clone';
 import { generateGrid } from '../helpers/generateArray';
 import { generateCode } from '../helpers/generateCode';
-import { getMatches, Match } from '../helpers/getMatches';
+import { getMatches } from '../helpers/getMatches';
 
 export enum GameState {
   InProgress,
