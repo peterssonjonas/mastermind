@@ -26,7 +26,7 @@ export interface State {
 
 export const getInitialState = ({turns = 10, holes = 4, colors = 6}): State => ({
   guesses: generateGrid(turns, holes, () => -1),
-  hints: generateGrid(turns, holes, () => Match.None),
+  hints: generateGrid(turns, holes, () => -1),
   turn: 0,
   guessIndex: 0,
   secretCode: generateCode(holes, colors),
