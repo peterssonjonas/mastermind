@@ -9,11 +9,11 @@ export const getPartialMatches = (matches: Match[], codeGuess: number[], secretC
 
     secretCode.forEach((code, j) => {
       if (secretMatched[j]) return;
-      if (matches[i] !== Match.None && alreadyMatched[j]) return;
-      if (guess === code) {
-        matches[i] = Match.Partial;
-        alreadyMatched[i] = secretMatched[j] = true;
-      }
+      if (matches[i] !== Match.None && alreadyMatched[i]) return;
+      if (guess !== code) return;
+      
+      matches[i] = Match.Partial;
+      alreadyMatched[i] = secretMatched[j] = true;
     });
   });
 

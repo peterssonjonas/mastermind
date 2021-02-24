@@ -7,9 +7,9 @@ describe('getPartialMatches', () => {
     const secretCode = [4, 5, 6, 0];
     const matches = [Match.None, Match.None, Match.None, Match.None];
 
-    const exactMatches = getPartialMatches(matches, guess, secretCode);
+    const partialMatches = getPartialMatches(matches, guess, secretCode);
 
-    expect(exactMatches).toEqual([Match.Partial, Match.None, Match.None, Match.None]);
+    expect(partialMatches).toEqual([Match.Partial, Match.None, Match.None, Match.None]);
   });
   
   it('does not override exact matches', () => {
@@ -17,9 +17,9 @@ describe('getPartialMatches', () => {
     const secretCode = [0, 5, 6, 0];
     const matches = [Match.Exact, Match.None, Match.None, Match.None];
 
-    const exactMatches = getPartialMatches(matches, guess, secretCode);
+    const partialMatches = getPartialMatches(matches, guess, secretCode);
 
-    expect(exactMatches).toEqual([Match.Exact, Match.None, Match.None, Match.None]);
+    expect(partialMatches).toEqual([Match.Exact, Match.None, Match.None, Match.None]);
   });
 
   it('does not match already matched guess', () => {
@@ -27,8 +27,18 @@ describe('getPartialMatches', () => {
     const secretCode = [0, 5, 6, 0];
     const matches = [Match.Exact, Match.Partial, Match.None, Match.None];
 
-    const exactMatches = getPartialMatches(matches, guess, secretCode);
+    const partialMatches = getPartialMatches(matches, guess, secretCode);
 
-    expect(exactMatches).toEqual([Match.Exact, Match.Partial, Match.None, Match.Partial]);
+    expect(partialMatches).toEqual([Match.Exact, Match.Partial, Match.None, Match.Partial]);
+  });
+
+  it('does match all as partial matches', () => {
+    const guess = [4, 4, 5, 5];
+    const secretCode = [5, 5, 4, 4];
+    const matches = [Match.None, Match.None, Match.None, Match.None];
+
+    const partialMatches = getPartialMatches(matches, guess, secretCode);
+
+    expect(partialMatches).toEqual([Match.Partial, Match.Partial, Match.Partial, Match.Partial]);
   });
 });
