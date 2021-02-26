@@ -5,3 +5,5 @@
 ![License](https://img.shields.io/github/license/peterssonjonas/mastermind)
 
 Mastermind Game in React
+
+Play the game here: https://peterssonjonas.github.io/mastermind/
