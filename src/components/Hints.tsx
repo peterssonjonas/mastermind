@@ -7,7 +7,7 @@ type HintsProps = {
 const Hints = ({ hints }: HintsProps) => (
   <>
     {hints.map((hint, i) => (
-      <div key={i} className="hint bordered" data-value={hint}></div>
+      <div key={i} className="hint bordered circle" data-value={hint}></div>
     ))}
   </>
 );

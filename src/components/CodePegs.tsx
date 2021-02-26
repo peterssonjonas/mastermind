@@ -8,7 +8,7 @@ const CodePegs = ({ colors, onClick }: CodePegsProps) => (
     {colors.map((color) => (
       <button
         key={color}
-        className="peg bordered"
+        className="peg circle"
         data-value={color}
         onClick={() => onClick(color)}
         aria-label={`${color}`}
