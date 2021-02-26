@@ -3,7 +3,7 @@ type PegProps = {
 };
 
 const Peg = ({ value }: PegProps) => (
-  <div className="peg bordered" data-value={value}></div>
+  <div className="peg bordered circle" data-value={value}></div>
 );
 
 export default Peg;
